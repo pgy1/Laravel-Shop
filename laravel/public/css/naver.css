@@ -1,0 +1,418 @@
+/* Global CSS that are applied for all screen sizes */
+.naver ul {
+	max-width: 1240px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 1.5em;
+	font-weight: 300;
+}
+
+.naver li span {
+	display: block;
+}
+
+.naver a {     /*颜色 背景 高度变化 时间为0.5s*/
+	display: block;
+	color: rgba(249, 249, 249, .9);
+	text-decoration: none;
+	-webkit-transition: color .5s, background .5s, height .5s;
+	-moz-transition: color .5s, background .5s, height .5s;
+	-o-transition: color .5s, background .5s, height .5s;
+	-ms-transition: color .5s, background .5s, height .5s;
+	transition: color .5s, background .5s, height .5s;
+}
+
+.naver i{/* Make the font smoother for Chrome *//*3D移动*/
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+/*其他菜单项变暗效果 */
+.no-touch .naver ul:hover a {
+	color: rgba(249, 249, 249, .5);
+}
+.no-touch .naver ul:hover a:hover {
+	color: rgba(249, 249, 249, 0.99);
+}
+
+/* 设置菜单项背景 */
+.naver li:nth-child(6n+1) {
+	background: rgb(208, 101, 3);
+}
+.naver li:nth-child(6n+2) {
+	background: rgb(233, 147, 26);
+}
+.naver li:nth-child(6n+3) {
+	background: rgb(22, 145, 190);
+}
+.naver li:nth-child(6n+4) {
+	background: rgb(22, 107, 162);
+}
+.naver li:nth-child(6n+5) {
+	background: rgb(27, 54, 71);
+}
+.naver li:nth-child(6n+6) {
+	background: rgb(21, 40, 54);
+}
+
+/* For screen bigger than 800px */
+@media (min-width: 50em) {
+	/* Transforms the list into a horizontal navigation */
+	.naver li {
+		float: left;
+		width: 16.66666666666667%;
+		text-align: center;
+		-webkit-transition:boder .5s;
+		-moz-transition: border .5s;
+		-o-transition: border .5s;
+		-ms-transition: border .5s;
+		transition: border .5s;
+	}
+
+	.naver a {
+		display: block;
+		width: auto;
+	}
+
+	/* hover, focused and active effects that add a little colored border to the different items*/
+	.no-touch .naver li:nth-child(6n+1) a:hover,
+	.no-touch .naver li:nth-child(6n+1) a:active,
+	.no-touch .naver li:nth-child(6n+1) a:focus {
+		border-bottom: 4px solid rgb(174, 78, 1); /*下边框的颜色*/
+	}
+
+	.no-touch .naver li:nth-child(6n+2) a:hover,
+	.no-touch .naver li:nth-child(6n+2) a:active,
+	.no-touch .naver li:nth-child(6n+2) a:focus {
+		border-bottom: 4px solid rgb(191, 117, 20);
+	}
+
+	.no-touch .naver li:nth-child(6n+3) a:hover,
+	.no-touch .naver li:nth-child(6n+3) a:active,
+	.no-touch .naver li:nth-child(6n+3) a:focus {
+		border-bottom: 4px solid rgb(12, 110, 149);
+	}
+
+	.no-touch .naver li:nth-child(6n+4) a:hover,
+	.no-touch .naver li:nth-child(6n+4) a:active,
+	.no-touch .naver li:nth-child(6n+4) a:focus {
+		border-bottom: 4px solid rgb(10, 75, 117);
+	}
+
+	.no-touch .naver li:nth-child(6n+5) a:hover,
+	.no-touch .naver li:nth-child(6n+5) a:active,
+	.no-touch .naver li:nth-child(6n+5) a:focus {
+		border-bottom: 4px solid rgb(16, 34, 44);
+	}
+
+	.no-touch .naver li:nth-child(6n+6) a:hover,
+	.no-touch .naver li:nth-child(6n+6) a:active,
+	.no-touch .naver li:nth-child(6n+6) a:focus {
+		border-bottom: 4px solid rgb(9, 18, 25);
+	}
+
+	/* Placing the icon */
+	.icon {
+		padding-top: 1.4em;
+	}
+
+    /*下滑效果——增加上外边距的高度*/
+	.icon + span {
+		margin-top: 2.1em;
+		-webkit-transition: margin .5s;
+		-moz-transition: margin .5s;
+		-o-transition: margin .5s;
+		-ms-transition: margin .5s;
+		transition: margin .5s;
+	}
+
+	/* 改变元素的height*/
+	.naver a {
+		height: 9em;
+	}
+
+	.no-touch .naver a:hover ,
+	.naver a:active ,
+	.naver a:focus {
+		height: 10em;
+	}
+
+	/* 文本随之下滑效果 */
+	.no-touch .naver a:hover .icon + span {
+		margin-top: 3.2em;
+		-webkit-transition: margin .5s;
+		-moz-transition: margin .5s;
+		-o-transition: margin .5s;
+		-ms-transition: margin .5s;
+		transition: margin .5s;
+	}
+
+	/*图像周围的光晕效果*/
+	.naver i {
+		/* position: relative; */
+		/* display: inline-block; */
+		/* margin: 0 auto; */
+		/* padding: 0.4em; */
+		/* border-radius: 50%; *//*圆形*/
+		/* font-size: 1.8em; */
+		/* box-shadow: 0 0 0 30px transparent; */
+		/* background: rgba(255,255,255,0.1); */
+		/* -webkit-transform: translate3d(0, 0, 0); *//*定义3D转化*/
+		-moz-transform: translate3d(0, 0, 0);
+		-o-transform: translate3d(0, 0, 0);
+		-ms-transform: translate3d(0, 0, 0);
+		/* transform: translate3d(0, 0, 0); */
+		/* -webkit-transition: box-shadow .6s ease-in-out; */
+		-moz-transition: box-shadow .6s ease-in-out;
+		-o-transition: box-shadow .6s ease-in-out;
+		-ms-transition: box-shadow .6s ease-in-out;
+		transition: box-shadow .6s ease-in-out;
+	}
+
+	/* Animate the box-shadow to create the effect */
+	.no-touch .naver a:hover i,
+	.no-touch .naver a:active i,
+	.no-touch .naver a:focus i {
+		box-shadow: 0 0 0 0 rgba(255,255,255,0.2);
+		-webkit-transition: box-shadow .4s ease-in-out;/*规定动画效果的速度曲线*/
+		-moz-transition: box-shadow .4s ease-in-out;
+		-o-transition: box-shadow .4s ease-in-out;
+		-ms-transition: box-shadow .4s ease-in-out;
+		transition: box-shadow .4s ease-in-out;
+	}
+
+}
+
+@media (min-width: 50em) and (max-width: 61.250em) {
+
+	/* Size and font adjustments to make it fit into the screen*/
+	.naver ul {
+		font-size: 1.2em;
+	}
+
+}
+
+/* 平板和手机的版本*/
+@media (max-width: 49.938em) {
+
+	/* Instead of adding a border, we transition the background color */
+	.no-touch .naver ul li:nth-child(6n+1) a:hover,
+	.no-touch .naver ul li:nth-child(6n+1) a:active,
+	.no-touch .naver ul li:nth-child(6n+1) a:focus {
+		background: rgb(227, 119, 20);
+	}
+
+	.no-touch .naver li:nth-child(6n+2) a:hover,
+	.no-touch .naver li:nth-child(6n+2) a:active,
+	.no-touch .naver li:nth-child(6n+2) a:focus {
+		background: rgb(245, 160, 41);
+	}
+
+	.no-touch .naver li:nth-child(6n+3) a:hover,
+	.no-touch .naver li:nth-child(6n+3) a:active,
+	.no-touch .naver li:nth-child(6n+3) a:focus {
+		background: rgb(44, 168, 219);
+	}
+
+	.no-touch .naver li:nth-child(6n+4) a:hover,
+	.no-touch .naver li:nth-child(6n+4) a:active,
+	.no-touch .naver li:nth-child(6n+4) a:focus {
+		background: rgb(31, 120, 176);
+	}
+
+	.no-touch .naver li:nth-child(6n+5) a:hover,
+	.no-touch .naver li:nth-child(6n+5) a:active,
+	.no-touch .naver li:nth-child(6n+5) a:focus {
+		background: rgb(39, 70, 90);
+	}
+
+	.no-touch .naver li:nth-child(6n+6) a:hover,
+	.no-touch .naver li:nth-child(6n+6) a:active,
+	.no-touch .naver li:nth-child(6n+6) a:focus {
+		background: rgb(32, 54, 68);
+	}
+
+	.naver ul li {
+		-webkit-transition: background 0.5s;
+		-moz-transition: background 0.5s;
+		-o-transition: background 0.5s;
+		-ms-transition: background 0.5s;
+		transition: background 0.5s;
+	}
+
+}
+
+/* 菜单处于2*3状态的版本 */
+@media (min-width:32.5em) and (max-width: 49.938em) {
+
+	/* Creating the 2 column layout using floating elements once again */
+	.naver li {
+		display: block;
+		float: left;
+		width: 50%;
+	}
+
+	/* Adding some padding to make the elements look nicer*/
+	.naver a {
+		padding: 0.8em;
+	}
+
+	/* Displaying the icons on the left, and the text on the right side using inlin-block*/
+	.naver li span,
+	.naver li span.icon {
+		display: inline-block;
+	}
+
+	.naver li span.icon {
+		width: 50%;
+	}
+
+	.naver li .icon + span {
+		font-size: 1em;
+	}
+
+	.icon + span {
+		position: relative;
+		top: -0.2em;
+	}
+
+	/* Adaptating to the icons to animate the size and border of the rounded background in a more discreet way */
+	.naver li i {
+		display: inline-block;
+		padding: 8% 9%;
+		border: 4px solid transparent;
+		border-radius: 50%;
+		font-size: 1.5em;
+		background: rgba(255,255,255,0.1);
+		-webkit-transition: border .5s;
+		-moz-transition: border .5s;
+		-o-transition: border .5s;
+		-ms-transition: border .5s;
+		transition: border .5s;
+	}
+
+	/* Transition effect on the border color */
+	.no-touch .naver li:hover i,
+	.no-touch .naver li:active i,
+	.no-touch .naver li:focus i {
+		border: 4px solid rgba(255,255,255,0.1);
+	}
+}
+
+/*改变字体大小适应更小的屏幕*/
+@media (min-width: 32.5em) and (max-width: 38.688em) {
+
+	.naver li span.icon {
+		width: 50%;
+	}
+
+	.naver li .icon + span {
+		font-size: 0.9em;
+	}
+}
+
+/* 设置‘menu’按钮 隐藏它 */
+.naver .navtoogle{
+	display: none;
+	width: 100%;
+	padding: 0.5em 0.5em 0.8em;
+	font-family: 'Lato',Calibri,Arial,sans-serif;
+	font-weight: normal;
+	text-align: left;
+	color: rgb(7, 16, 15);
+	font-size: 1.2em;
+	background: none;
+	border: none;
+	border-bottom: 4px solid rgb(221, 221, 221);
+	cursor: pointer;
+}
+
+.icon-menu {
+	position: relative;
+	top: 3px;
+	line-height: 0;
+	font-size: 1.6em;
+}
+
+@media (max-width: 32.438em) {
+
+	/*屏幕更小时 不隐藏菜单按钮 菜单项竖直排列 */
+	.naver .navtoogle{
+		margin: 0;
+		display: block;
+	}
+
+	/* Animating the height of the navigation when the button is clicked */
+
+	/* When JavaScript is disabled, we hide the menu */
+	.no-js .naver ul {
+		max-height: 30em;
+		overflow: hidden;
+	}
+
+	/* When JavaScript is enabled, we hide the menu */
+	.js .naver ul {
+		max-height: 0em;
+		overflow: hidden;
+	}
+
+	/* Displaying the menu when the user has clicked on the button*/
+	.js .naver .active + ul {
+		max-height: 30em;
+		overflow: hidden;
+		-webkit-transition: max-height .4s;
+		-moz-transition: max-height .4s;
+		-o-transition: max-height .4s;
+		-ms-transition: max-height .4s;
+		transition: max-height .4s;
+	}
+
+	/* Adapting the layout of the menu for smaller screens : icon on the left and text on the right*/
+
+	.naver li span {
+		display: inline-block;
+		height: 100%;
+	}
+
+	.naver a {
+		padding: 0.5em;
+	}
+	.icon + span {
+		margin-left: 1em;
+		font-size: 0.8em;
+	}
+
+	/* Adding a left border of 8 px with a different color for each menu item*/
+	.naver li:nth-child(6n+1) {
+		border-left: 8px solid rgb(174, 78, 1);
+	}
+
+	.naver li:nth-child(6n+2) {
+		border-left: 8px solid rgb(191, 117, 20);
+	}
+
+	.naver li:nth-child(6n+3) {
+		border-left: 8px solid rgb(13, 111, 150);
+	}
+
+	.naver li:nth-child(6n+4) {
+		border-left: 8px solid rgb(10, 75, 117);
+	}
+
+	.naver li:nth-child(6n+5) {
+		border-left: 8px solid rgb(16, 34, 44);
+	}
+
+	.naver li:nth-child(6n+6) {
+		border-left: 8px solid rgb(9, 18, 25);
+	}
+
+	/* make the nav bigger on touch screens */
+	.touch .naver a {
+		padding: 0.8em;
+	}
+}

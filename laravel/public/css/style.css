@@ -1,0 +1,46 @@
+
+body{
+    font-family:"微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.section-preview .preview{
+    min-height: 350px;
+}
+
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:hover {
+    background: #fff;
+}
+
+/*.nav > li:hover .dropdown-menu {display: block;}*/
+
+.dropdown-menu-type{
+    width: 320px;
+}
+
+.dropdown-menu-type li{
+    float: left;
+}
+
+.dropdown-menu li a{
+    padding: 3px 15px;
+}
+
+.fleft{
+    float: left;
+}
+.fright{
+    float: right;
+}
+
+.splash{
+    padding: 40px 0 20px 0;
+}
