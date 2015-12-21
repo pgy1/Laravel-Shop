@@ -36,6 +36,7 @@ Route::get('/product/edit', 'ProductController@edit');
 Route::get('/product/delete', 'ProductController@delete');
 Route::post('/product/create', 'ProductController@create');
 Route::post('/product/update', 'ProductController@update');
+Route::post('/product/upload', 'ProductController@upload');
 
 Route::get('/userinfo/show/{uid}', 'UserinfoController@show');
 Route::get('/userinfo/edit', 'UserinfoController@edit');

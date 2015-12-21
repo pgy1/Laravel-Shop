@@ -54,6 +54,13 @@
                         </div>
                     </div>
 
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="images"></label>
+                        <div class="col-md-10 uploaded">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="price">商品价格</label>
                         <div class="col-sm-3">
@@ -93,13 +100,34 @@
     <?php $timestamp = time();?>
     $(function() {
         $('#images').uploadify({
+//            'debug' : 'true',
+            'fileObjName' : 'images',//默认为FileData，后台获取文件的name值
             'formData'     : {
                 'timestamp' : '<?php echo $timestamp;?>',
-                'token'     : '<?php echo md5('24mim' . $timestamp);?>'
+                'token'     : '<?php echo md5('24mim' . $timestamp);?>',
+                '_token' : '{{ csrf_token() }}'
             },
             'buttonText' : '上传图片',
             'swf'      : '{{ asset("/uploadify/uploadify.swf") }}',
-            'uploader' : '{{ url("product/upload") }}'
+            'uploader' : '{{ url("product/upload") }}',
+            'onUploadSuccess' : function(file, data, response) {
+//                alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+                var json = eval('('+data+')');
+                var pics = json.pic;
+                alert(pics);
+
+                var images;
+                for(var i = 0; i < pics.length; i++){
+                    images = "<img src='"+pics+"' width='150' height='150' />";
+                }
+
+                if(json.success){
+                    $(".uploaded").html(images);
+                }
+            },
+            'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+                alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
+            }
         });
     });
 </script>

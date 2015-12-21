@@ -2,8 +2,8 @@
 
 use App\Product;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
 
 class ProductController extends Controller {
 
@@ -115,27 +115,27 @@ class ProductController extends Controller {
 		return view('product_edit');
 	}
 
-    public function upload(){
-        $targetFolder = '/uploads'; // Relative to the root
+    public function upload(Request $request, Response $response){
+		$file = $request->file('images');
+		if ($request->hasFile('images')){
+			$allowed_extensions = ["png", "jpg", "jpeg", "gif"];
+			if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
+				return ['error' => 'You may only upload png, jpg or gif.'];
+			}
 
-        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
+			$destinationPath = 'uploads/images/';
+			$extension = $file->getClientOriginalExtension();
+			$fileName = str_random(10).'.'.$extension;
+			$file->move($destinationPath, $fileName);
 
-        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
-            $tempFile = $_FILES['Filedata']['tmp_name'];
-            $targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
-            $targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
-
-            // Validate the file type
-            $fileTypes = array('jpg','jpeg','gif','png'); // File extensions
-            $fileParts = pathinfo($_FILES['Filedata']['name']);
-
-            if (in_array($fileParts['extension'],$fileTypes)) {
-                move_uploaded_file($tempFile,$targetFile);
-                echo '1';
-            } else {
-                echo 'Invalid file type.';
-            }
-        }
+//			dd($extension);
+			return $response->setContent(
+				[
+					'success' => true,
+					'pic' => asset($destinationPath.$fileName),
+				]
+			);
+		}
     }
 
 }
