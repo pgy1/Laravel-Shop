@@ -148,7 +148,6 @@ return [
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\AjaxResponseServiceProvider',
 		'App\Providers\RepositoryServiceProvider',
-		'App\Providers\DataHandleProvider',
 
 
 	],

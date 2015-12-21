@@ -10,7 +10,7 @@
     <link href="{{ asset('/css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}"/>
+    <link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}"/>
 
     <!-- Fonts -->
     {{--<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>--}}
@@ -70,6 +70,9 @@
                     </ul>
                 </li>
                 <li><a href="{{ url('/favorite/list') }}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;购物车</a></li>
+                @if (Auth::check())
+                <li><a href="{{ url('/past/list') }}"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;待处理订单</a></li>
+                @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
 

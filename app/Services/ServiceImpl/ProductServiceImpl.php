@@ -1,6 +1,5 @@
 <?php namespace App\Services\ServiceImpl;
 
-use App\Favorite;
 use App\Services\ProductService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
@@ -9,11 +8,11 @@ class ProductServiceImpl implements ProductService{
 
     /**
      * 商品数据
-     *
      * */
     public function getProducts(){
         //直接获取所有的商品数据
-
+        $products = DB::table("products")->get();
+        return $products;
     }
 
     /**
@@ -31,7 +30,7 @@ class ProductServiceImpl implements ProductService{
         $sql = " select t.* from products t order by t.updated_at desc ";
         $totalData = DB::select( DB::raw($sql));//计算符合条件的所有数据
         $data['products'] = DB::select( DB::raw($sql.' limit '.$from.','.$to));//单页数据
-        $data['products'] = Favorite::getProductList();//获取商品相关联的商品表数据
+        $data['products'] = $this->getProducts();//获取商品相关联的商品表数据
         $data['page']['total'] = count($totalData);//计算数据总条数
 
         $availible = ceil((count($totalData)/$perPage));//计算数据可分的总页数

@@ -30,7 +30,7 @@
             <p class="lead blog-description">截止日期：{{ date("Y年m月d日 H:i",$product->deadline) }}</p>
             <p class="lead blog-description">描述：{{ $product->description }}</p>
             <div class="btn-group">
-                <a href="{{ url('/favorite/pay').'/'.$product->pid }}">
+                <a href="{{ url('/past/create').'/'.$product->pid }}">
                     <button class="btn btn-danger">
                         <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>&nbsp;支付
                     </button>

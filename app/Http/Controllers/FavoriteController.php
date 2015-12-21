@@ -4,12 +4,22 @@ use App\Favorite;
 use App\Http\Requests;
 
 use App\Services\FavoriteService;
+use App\Services\ServiceImpl\PastServiceImpl;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class FavoriteController extends Controller {
 
-	private $msg;
+    private $favoriteService;//注入service
+
+	private $user;//当前用户信息
+    private $msg;
+
+    public function __construct(FavoriteService $favoriteService){
+        $this->favoriteService = $favoriteService;
+        $this->user = Auth::user();
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -27,15 +37,16 @@ class FavoriteController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(Request $request,$pid)
+	public function create($pid)
 	{
 		$this->msg = "添加失败";
 		//如果购物车不存在该物品，则添加到购物车
-        if(!Favorite::exsitId($pid)){
+        if(!$this->favoriteService->exsitObjByUPid($this->user->id, $pid)){
             $now = time();
             $fid = $pid.$now.rand(10000,99999);
             $favorite = new Favorite;
             $favorite->pid = $pid;
+            $favorite->uid = $this->user->id;
             $favorite->fid = $fid;
             $favorite->ftime = $now;
 			$favorite->save();
@@ -74,24 +85,25 @@ class FavoriteController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function lists(FavoriteService $favoriteService)
+	public function lists()
 	{
 		//
         $pageNo = 1;
         $perPage = 5;
-        $data = $favoriteService->getPages($pageNo, $perPage);
+        $data = $this->favoriteService->getPages($pageNo, $perPage);
 
 		if (view()->exists('favorite'))
         	return view('favorite',['data'=>$data, 'msg'=>'']);
 		else
 			return redirect('home');
 	}
-	public function listByPage($pageNo,FavoriteService $favoriteService)
+
+	public function listByPage($pageNo)
 	{
 		//
         $pageNo = isset($pageNo)? $pageNo:1 ;
         $perPage = 5;
-        $data = $favoriteService->getPages($pageNo, $perPage);
+        $data = $this->favoriteService->getPages($pageNo, $perPage);
 
 		if (view()->exists('favorite'))
         	return view('favorite',['data'=>$data, 'msg'=>'']);
@@ -127,10 +139,16 @@ class FavoriteController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function delete($fid,FavoriteService $favoriteService)
+	public function delete($fid)
 	{
-		//删除购物车序号
-		$result = DB::table("favorites")->where('fid',$fid)->delete();
+        $result = 0;
+        $pid = $this->favoriteService->getPidByFid($fid);
+        //如果生成过订单
+        $pastService = new PastServiceImpl();
+        $result2 = $pastService->delete($this->user->id, $pid);
+        //删除购物车序号
+        if($result2)
+            $result = DB::table("favorites")->where('fid',$fid)->delete();
 
 		if (view()->exists('favorite'))
 			if($result)
@@ -148,9 +166,23 @@ class FavoriteController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		//
+        $result = 0;
+        //如果生成过订单
+        $pastService = new PastServiceImpl();
+        $result2 = $pastService->clear();
+        //删除购物车序号
+        if($result2)
+            $result = DB::table("favorites")->delete();
+
+        if (view()->exists('favorite'))
+            if($result)
+                return redirect('/favorite/list')->with("msg","删除成功");
+            else
+                return redirect('/favorite/list')->with("msg","删除失败");
+        else
+            return redirect('home');
 
 	}
 

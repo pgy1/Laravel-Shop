@@ -25,8 +25,8 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="title">标题</label>
-                        <div class="col-sm-10">
+                        <label class="col-md-2 control-label" for="title">姓名：{{ $user['name'] }}</label>
+                        <div class="col-sm-10 hidden">
                         <input type="text" class="form-control" id="title" name="title" placeholder="标题" />
                         </div>
                     </div>

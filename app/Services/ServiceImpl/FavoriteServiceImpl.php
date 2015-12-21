@@ -7,12 +7,36 @@ use Illuminate\Support\Facades\DB;
 
 class FavoriteServiceImpl implements FavoriteService{
 
+
     /**
-     * 购物车数据
-     *
+     * 获取购物车记录的商品随机号
+     * @param $fid 购物车id
+     * */
+    public function getPidByFid($fid)
+    {
+        // TODO: Implement getPidByFid() method.
+        $favorite = DB::table("favorites")->select("pid")
+                    ->where("fid",$fid)->first();
+        return $favorite->pid;
+    }
+
+    /**
+     * 获取购物车所有的数据
      * */
     public function getFavorites(){
-        //直接获取所有的购物车数据
+        $favorites = array();
+        if(self::exsitObj()){
+            $favorites = DB::table("favorites")->get();
+        }
+//        dd($favorites);
+        return $favorites;
+    }
+
+    /**
+     * 获取单个购物车信息
+     * @param $fid 购物车编号
+     * */
+    public function getFavoriteById($fid){
 
     }
 
@@ -28,10 +52,10 @@ class FavoriteServiceImpl implements FavoriteService{
         $to = $perPage;
 
         //按更新时间倒序输出
-        $sql = " select t.* from favorites t order by t.updated_at desc ";
-        $totalData = DB::select( DB::raw($sql));//计算符合条件的所有数据
-        $data['favorites'] = DB::select( DB::raw($sql.' limit '.$from.','.$to));//单页数据
-        $data['products'] = Favorite::getProductList();//获取购物车相关联的商品表数据
+        $totalData = DB::table("favorites")->orderBy("updated_at","desc")->get();
+        $data['favorites'] = DB::table("favorites")->orderBy("updated_at","desc")
+                        ->skip($from)->take($to)->get();//相当于limit $from,$to
+        $data['products'] = Favorite::getProductList($this);//获取购物车相关联的商品表数据
         $data['page']['total'] = count($totalData);//计算数据总条数
 
         $availible = ceil((count($totalData)/$perPage));//计算数据可分的总页数
@@ -50,4 +74,46 @@ class FavoriteServiceImpl implements FavoriteService{
         return $data;
     }
 
+    /**
+     * 判断表中是否存在记录
+     * @return boolen
+     * */
+    public function exsitObj()
+    {
+        // TODO: Implement exsitObj() method.
+        $result = DB::table('favorites')->select(DB::raw(1))->first();
+        if(sizeof($result)>0) return true;
+        return false;
+    }
+
+    /**
+     * 根据购物车id，判断表中是否存在该记录
+     * @param $fid 购物车编号
+     * @return boolen
+     * */
+    public function exsitObjById($fid)
+    {
+        // TODO: Implement exsitObj() method.
+        $result = DB::table('favorites')->select(DB::raw(1))->where('fid',$fid)->first();
+        if(sizeof($result)>0) return true;
+        return false;
+    }
+
+    /**
+     * 判断表中是否存在该记录
+     * @param $uid 用户id
+     * @param $pid 商品随机号
+     * @return boolen
+     * */
+    public function exsitObjByUPid($uid, $pid)
+    {
+        // TODO: Implement exsitObjByUPid() method.
+        $result = DB::table('favorites')
+                    ->select(DB::raw(1))
+                    ->where('uid',$uid)
+                    ->where('pid',$pid)
+                    ->first();
+        if(sizeof($result)>0) return true;
+        return false;
+    }
 }

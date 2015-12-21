@@ -3,7 +3,9 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserinfoController extends Controller {
 
@@ -60,7 +62,9 @@ class UserinfoController extends Controller {
 	 */
 	public function edit()
 	{
-		return view('userinfo_edit');
+        $uid = Auth::user()->id;
+        $user = User::find($uid);
+		return view('userinfo_edit')->with('user',$user->toArray());
 	}
 
 	/**

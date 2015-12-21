@@ -7,10 +7,11 @@
     <title>二手物品发布平台</title>
 
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
+    @yield('uploadcss')
     <link href="{{ asset('/css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}"/>
+    <link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}"/>
 
     <!-- Fonts -->
     {{--<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>--}}
@@ -102,6 +103,7 @@
                         </ul>
                     </li>
                 <li><a href="{{ url('/favorite/list') }}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;购物车</a></li>
+                <li><a href="{{ url('/past/list') }}"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;待处理订单</a></li>
                 @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -155,12 +157,13 @@
 </div>
 @yield('content')
 
-        <!-- Scripts -->
-{{--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>--}}
+<!-- Scripts -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {{--<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>--}}
-<script src="{{ url('js/jquery.min.js') }}"></script>
+{{--<script src="{{ url('js/jquery.min.js') }}"></script>--}}
 <script src="{{ url('js/bootstrap.min.js') }}"></script>
 {{--<script src="{{ url('js/bootstrap-hover-dropdown.min.js') }}"></script>--}}
 <script src="{{ url('js/custom.js') }}"></script>
+@yield('uploadify')
 </body>
 </html>

@@ -1,8 +1,8 @@
 @extends('app_auth')
 
-<script type="text/javascript" charset="utf-8" src="{{ url('/css/uploadify.css') }}"> </script>
-<script type="text/javascript" charset="utf-8" src="{{ url('/laravel-u-editor/ueditor.config.js') }}"> </script>
-<script type="text/javascript" charset="utf-8" src="{{ url('/laravel-u-editor/ueditor.all.min.js') }}"> </script>
+@section('uploadcss')
+<link href="{{ asset('/css/uploadify.css') }}" rel="stylesheet" />
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -85,47 +85,22 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="{{ url("js/jquery.uploadify.min.js") }}"></script>
-    <script type="text/javascript">
-        <?php $timestamp = time();?>
-        $(function() {
-            $('#images').uploadify({
-                'formData'     : {
-                    'timestamp' : '<?php echo $timestamp;?>',
-                    'token'     : '<?php echo md5('24mim' . $timestamp);?>'
-                },
-                'swf'      : '{{ url("/uploadify/uploadify.swf") }}',
-                'uploader' : '{{ url("product/upload") }}'
-            });
-        });
-    </script>
 @endsection
 
-@section('jquery')
-    <script type="text/javascript">
-        var ue = UE.getEditor('editor');
-    </script>
-
-    <script type="text/javascript" src="{{ url("js/jquery.form.js") }}"></script>
-    <script type="text/javascript">
-        {{--//删除操作--}}
-        {{--$(function(){--}}
-            {{--var options = {--}}
-                {{--success: showResponse, //处理完成--}}
-                {{--resetForm: true,--}}
-                {{--dataType: 'json'--}}
-            {{--};--}}
-            {{--$('#my_form').submit(function() {--}}
-                {{--$(this).ajaxSubmit(options);--}}
-                {{--return false;--}}
-            {{--});--}}
-        {{--});--}}
-        {{--function showResponse(responseText, statusText) {--}}
-            {{--alert(responseText.errMsg);--}}
-            {{--if(responseText.errNum == 0){--}}
-                {{--location.href = '{{ url('/product') }}';--}}
-            {{--}--}}
-            {{--return false;--}}
-        {{--}--}}
-    </script>
+@section('uploadify')
+<script src="{{ url("js/jquery.uploadify.min.js") }}"></script>
+<script type="text/javascript">
+    <?php $timestamp = time();?>
+    $(function() {
+        $('#images').uploadify({
+            'formData'     : {
+                'timestamp' : '<?php echo $timestamp;?>',
+                'token'     : '<?php echo md5('24mim' . $timestamp);?>'
+            },
+            'buttonText' : '上传图片',
+            'swf'      : '{{ asset("/uploadify/uploadify.swf") }}',
+            'uploader' : '{{ url("product/upload") }}'
+        });
+    });
+</script>
 @endsection

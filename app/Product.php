@@ -34,6 +34,17 @@ class Product extends Model {
         return $this->belongsTo('App\User','id');
     }
 
+    public function past(){
+        return $this->belongsTo('App\Past','pastid');
+    }
+
+    public static function getProductById($pid){
+
+        $products = DB::table("products")->where("pid","=",$pid)->get();
+
+        return $products;
+    }
+
     public static function getProducts(){
 
         $products = DB::table("products")->where("name","like","%%")->get();

@@ -25,7 +25,8 @@ class RepositoryServiceProvider extends ServiceProvider{
 
         $services = [
             'App\Services\FavoriteService'=>'App\Services\ServiceImpl\FavoriteServiceImpl',
-            'App\Services\ProductService'=>'App\Services\ServiceImpl\ProductServiceImpl'
+            'App\Services\ProductService'=>'App\Services\ServiceImpl\ProductServiceImpl',
+            'App\Services\PastService'=>'App\Services\ServiceImpl\PastServiceImpl'
         ];
 
         foreach($services as $service=>$serviceImpl){
