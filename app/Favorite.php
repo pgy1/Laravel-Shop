@@ -2,6 +2,8 @@
 
 use App\Services\DataHandle;
 use App\Services\FavoriteService;
+use App\Services\ProductService;
+use App\Services\ServiceImpl\ProductServiceImpl;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -44,7 +46,8 @@ class Favorite extends Model {
         $products = array();
         $list = $favoriteService->getFavorites();
         foreach($list as $favorite){
-            $product = Product::find($favorite->pid);
+            $productService = new ProductServiceImpl($favoriteService);
+            $product = $productService->getProductById($favorite->pid);
             $products[$favorite->fid]['product'] = $product;
         }
 //        dd($products);

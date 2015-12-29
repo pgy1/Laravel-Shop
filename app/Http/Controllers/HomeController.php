@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Product;
+use App\Services\ProductService;
 
 class HomeController extends Controller {
 
@@ -15,14 +16,16 @@ class HomeController extends Controller {
 	|
 	*/
 
+	private $productService;//注入service
+
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(ProductService $productService)
 	{
-//		$this->middleware('auth');
+		$this->productService = $productService;
 	}
 
 	/**
@@ -32,9 +35,11 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		$products = Product::paginate(9);
 
-		return view('home',['products'=>$products]);
+		$products = $this->productService->getPages(1,9);
+//		dd($products);
+
+		return view('home',['data'=>$products]);
 	}
 
 }

@@ -1,4 +1,4 @@
-@extends('app_auth')
+@extends('app')
 
 @section('content')
 

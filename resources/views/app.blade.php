@@ -9,6 +9,7 @@
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+    @yield('uploadcss')
     <!-- Favicon-->
     <link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}"/>
 
@@ -69,9 +70,14 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="{{ url('/favorite/list') }}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;购物车</a></li>
                 @if (Auth::check())
-                <li><a href="{{ url('/past/list') }}"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;待处理订单</a></li>
+                    <li><a href="{{ url('/favorite/list') }}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;购物车</a></li>
+                @else
+                    <li><a href="{{ url('/favorite/list') }}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;购物车</a></li>
+{{--                    <li><a href="{{ url('/favorite/cache/list') }}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;购物车</a></li>--}}
+                @endif
+                @if (Auth::check())
+                    <li><a href="{{ url('/past/list') }}"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;待处理订单</a></li>
                 @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -126,11 +132,12 @@
 @yield('content')
 
         <!-- Scripts -->
-{{--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>--}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {{--<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>--}}
-<script src="{{ url('js/jquery.min.js') }}"></script>
+{{--<script src="{{ url('js/jquery.min.js') }}"></script>--}}
 <script src="{{ url('js/bootstrap.min.js') }}"></script>
 {{--<script src="{{ url('js/bootstrap-hover-dropdown.min.js') }}"></script>--}}
 <script src="{{ url('js/custom.js') }}"></script>
+@yield('uploadify')
 </body>
 </html>

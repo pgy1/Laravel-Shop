@@ -94,8 +94,8 @@ class PastController extends Controller {
         $perPage = 5;
 		$pasts = $this->pastService->getPages($pageNo,$perPage);
 //        dd($pasts);
-        if (view()->exists('past_list'))
-		    return view('past_list')->with('data',$pasts);
+        if (view()->exists('past.list'))
+		    return view('past.list')->with('data',$pasts);
         else
             return redirect('home');
 	}
@@ -106,8 +106,8 @@ class PastController extends Controller {
         $perPage = 5;
         $pasts = $this->pastService->getPages($pageNo,$perPage);
 //        dd($pasts);
-        if (view()->exists('past_list'))
-            return view('past_list')->with('data',$pasts);
+        if (view()->exists('past.list'))
+            return view('past.list')->with('data',$pasts);
         else
             return redirect('home');
     }
@@ -123,7 +123,7 @@ class PastController extends Controller {
 		//
         $past = Past::getPastByPastId($pastid);
         $past = $past[0];
-        return view('past')->with('past',$past);
+        return view('past.show')->with('past',$past);
 	}
 
 	/**
@@ -158,7 +158,7 @@ class PastController extends Controller {
 	{
         $result = DB::table("pasts")->where('pastid',$pastid)->delete();
 
-        if (view()->exists('past'))
+        if (view()->exists('past.show'))
             if($result)
                 return redirect('/past/list')->with("msg","删除成功");
             else
@@ -171,7 +171,7 @@ class PastController extends Controller {
 	{
         $result = $this->pastService->clear();
 
-        if (view()->exists('past'))
+        if (view()->exists('past.show'))
             if($result)
                 return redirect('/past/list')->with("msg","删除成功");
             else

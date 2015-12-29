@@ -15,11 +15,15 @@ class CreateFavoritesTable extends Migration {
 		Schema::create('favorites', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->integer('uid')->unique();//用户id
-            $table->string('pid',30)->unique();//商品随机号
-            $table->string('fid',30)->unique();//收藏随机号
+			$table->string('fid',30)->unique();//收藏随机号
+            $table->integer('uid');//用户id
+            $table->string('pid',30);//商品随机号
             $table->string('ftime',14);//收藏时间
 			$table->timestamps();
+
+			$table->foreign('pid')
+				->references('pid')->on('products')
+				->onDelete('cascade');
 		});
 	}
 

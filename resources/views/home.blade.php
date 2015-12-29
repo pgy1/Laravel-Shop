@@ -1,4 +1,4 @@
-@extends('app_auth')
+@extends('app')
 
 @section('content')
 
@@ -9,23 +9,6 @@
 
                     <h1>寻找你的"珍"爱</h1>
 
-                    {{--<div id="mc_embed_signup">--}}
-                        {{--<form action="{{ url('/product/search') }}" method="get" id="mc-embedded-subscribe-form"--}}
-                              {{--class="validate">--}}
-                            {{--<label for="mce-EMAIL" style="padding-bottom:4px;">Get the best new product!</label>--}}
-                            {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
-
-                            {{--<div class="input-append">--}}
-                                {{--<input type="text" value="" name="search" class="form-control" id="mce-EMAIL"--}}
-                                       {{--placeholder="物品搜索" required--}}
-                                       {{--style="width:250px;float:center;font-size:15px;height:43px;color: #555;border: 1px solid #ccc;border-radius: 4px;padding: 0px 0px 0px 10px;	display:inline-block; ">--}}
-
-                                {{--<input type="submit" value="搜索" id="mc-embedded-subscribe"--}}
-                                       {{--class="btn btn-default" style="background-color: #fd5443;height: 40px;font-size: 15px;color: #fff;border:0;display: inline-block;">--}}
-                            {{--</div>--}}
-                        {{--</form>--}}
-                    {{--</div>--}}
-
                 </div>
             </div>
         </div>
@@ -33,12 +16,12 @@
     <div class="section-preview">
         <div class="container">
             <div class="row">
-                @if(sizeof($products)>0)
-                @foreach($products as $key=>$product)
+                @if(sizeof($data['products'])>0)
+                @foreach($data['products'] as $key=>$product)
                 <div class="col-lg-4 col-sm-6">
                     <div class="preview">
                         <div class="image positive">
-                            <img src="{{ url($product->images) }}" width="360">
+                            <img src="{{ url($product->image) }}" width="360" height="288">
 
                             <div style="position: absolute;width:360px;bottom:-10px;right:0;text-align: left;">
                                 <p class="well-sm alert-info">
@@ -57,16 +40,34 @@
                         <div class="text-center">
 
                             <div class="btn-group">
-                                <a href="{{ url('/product/show').'/'.$product->id }}">
+                                <a href="{{ url('/product/show').'/'.$product->pid }}">
                                     <button class="btn btn-info">
                                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;查看详情
                                     </button>
                                 </a>
-                                <a href="{{ url('/favorite/create').'/'.$product->id }}">
-                                    <button class="btn btn-success">
-                                        <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;收藏物品
-                                    </button>
-                                </a>
+                                @if(Auth::guest())
+{{--                                    <a href="{{ url('/favorite/cache').'/'.$product->pid }}">--}}
+                                    <a href="{{ url('/favorite/create').'/'.$product->pid }}">
+                                        <button class="btn btn-success">
+                                            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;收藏物品
+                                        </button>
+                                    </a>
+                                @endif
+                                @if(Auth::check())
+                                    @if(isset($product->fid))
+                                        <a href="{{ url('/favorite/cancel').'/'.$product->pid }}">
+                                            <button class="btn btn-warning">
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;已收藏
+                                            </button>
+                                        </a>
+                                        @else
+                                        <a href="{{ url('/favorite/create').'/'.$product->pid }}">
+                                            <button class="btn btn-success">
+                                                <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;收藏物品
+                                            </button>
+                                        </a>
+                                    @endif
+                                @endif
                             </div>
 
                         </div>

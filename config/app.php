@@ -148,6 +148,7 @@ return [
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\AjaxResponseServiceProvider',
 		'App\Providers\RepositoryServiceProvider',
+		'App\Providers\DataHandleProvider',
 
 
 	],
@@ -198,6 +199,7 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 		'AjaxResponse' => 'App\Facades\AjaxResponseFacade',
+		'DataHandle' => 'App\Facades\DataHandleFacade',
 	],
 
 ];

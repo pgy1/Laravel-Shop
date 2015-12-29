@@ -1,11 +1,15 @@
 <?php namespace App\Http\Controllers;
 
 use App\Product;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class ProductController extends Controller {
+
+	private $user;
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,6 +30,7 @@ class ProductController extends Controller {
 	public function __construct()
 	{
 //		$this->middleware('guest');
+		$this->user = Auth::user();
 	}
 
 	/**
@@ -36,7 +41,7 @@ class ProductController extends Controller {
 	public function index(Request $request)
 	{
 //		dd($user);
-		return view('product');
+		return view('product.list');
 	}
 
 	/**
@@ -58,11 +63,13 @@ class ProductController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function show(Request $request,$pid)
+	public function show(ProductService $productService,$pid)
 	{
-        $product = Product::find($pid);
+        $product = $productService->getProductById($pid);
+		$favorite = $productService->getFidByUPid($this->user->id,$pid);
+		$product->favorite = $favorite;
 //		dd($product);
-		return view('single',['product'=>$product]);
+		return view('product.single',['product'=>$product]);
 	}
 
 	/**
@@ -73,7 +80,7 @@ class ProductController extends Controller {
 	public function showbyclass(Request $request,$classid)
 	{
         $product = Product::find(1);
-		return view('single',['product'=>$product]);
+		return view('product.single',['product'=>$product]);
 	}
 
 	/**
@@ -84,8 +91,8 @@ class ProductController extends Controller {
 	public function edit(Request $request)
 	{
 //		dd($user);
-		if (view()->exists('product_edit')){
-			return view('product_edit');
+		if (view()->exists('product.edit')){
+			return view('product.edit');
 		}
 		return view('home');
 	}
@@ -101,18 +108,35 @@ class ProductController extends Controller {
 
 		$data = array('errNum'=>0, 'errMsg'=>'', 'errDate'=>'');
 
-		$title = $request->input("title");
-		$type = $request->input("special");
-		$content = $request->input("content");
-		$images = serialize($request->input("images"));
-		$price = $request->input("price");
-		$deadline = $request->input("deadline");
+		$title = empty($request->input("title"))?0:$request->input("title");
+		$type = empty($request->input("special"))?0:$request->input("special");
+		$content = empty($request->input("content"))?0:$request->input("content");
+		$image = empty($request->input("image"))?0:$request->input("image");
+		$images = empty($request->input("imagepath"))?0:$request->input("imagepath");
+		$price = empty($request->input("price"))?0:$request->input("price");
+		$deadline = empty($request->input("deadline"))?0:$request->input("deadline");
         $payway = $request->input("payway");
+		$product = array();
+		$product["pid"] = time().rand(10000,99999);
+		$product["uid"] = $this->user->id;
+		$product["name"] = $title;
+		$product["type"] = $type;
+		$product["description"] = $content;
+		$product["image"] = $image;
+		$product["images"] = $images;
+		$product["price"] = $price;
+		$product["deadline"] = $deadline;
+		$product["payway"] = $payway;
+//		dd($product);
 
-        Product::create($request->input());
+//		if($title!=0 && $type!=0 && $content!=0 && $images!=0 && $price!=0 && $deadline!=0)
+        	Product::updateOrCreate($product);
 
 
-		return view('product_edit');
+		if (view()->exists('product.edit')){
+			return view('product.edit');
+		}
+		return view('home');
 	}
 
     public function upload(Request $request, Response $response){
@@ -123,19 +147,22 @@ class ProductController extends Controller {
 				return ['error' => 'You may only upload png, jpg or gif.'];
 			}
 
-			$destinationPath = 'uploads/images/';
+			$destinationPath = 'images/product/'.date("Ymd",time()).'/';
 			$extension = $file->getClientOriginalExtension();
 			$fileName = str_random(10).'.'.$extension;
 			$file->move($destinationPath, $fileName);
 
 //			dd($extension);
-			return $response->setContent(
-				[
-					'success' => true,
-					'pic' => asset($destinationPath.$fileName),
-				]
-			);
+			$path = "/".$destinationPath.$fileName;
+			$pic = asset($destinationPath.$fileName);
 		}
+		return $response->setContent(
+			[
+				'success' => true,
+				'pic' => $pic,
+				'path' => $path,
+			]
+		);
     }
 
 }

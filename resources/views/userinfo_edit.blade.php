@@ -1,4 +1,4 @@
-@extends('app_auth')
+@extends('app')
 
 <script type="text/javascript" charset="utf-8" src="{{ url('/laravel-u-editor/ueditor.config.js') }}"> </script>
 <script type="text/javascript" charset="utf-8" src="{{ url('/laravel-u-editor/ueditor.all.min.js') }}"> </script>

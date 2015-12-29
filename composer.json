@@ -6,7 +6,8 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "5.0.*",
-		"stevenyangecho/laravel-u-editor": "~1.1"
+		"stevenyangecho/laravel-u-editor": "~1.1",
+		"predis/predis": "1.0.*"
 		
 	},
 	"require-dev": {

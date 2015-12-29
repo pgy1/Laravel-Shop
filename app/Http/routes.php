@@ -26,8 +26,11 @@ Route::get('/favorite/list', 'FavoriteController@lists');
 Route::get('/favorite/list/{pageNo}', 'FavoriteController@listByPage');
 Route::get('/favorite/show/{fid}', 'FavoriteController@show');
 Route::get('/favorite/delete/{fid}', 'FavoriteController@delete');
+Route::get('/favorite/cancel/{pid}', 'FavoriteController@cancel');
 Route::get('/favorite/clear', 'FavoriteController@destroy');
 Route::get('/favorite/create/{pid}', 'FavoriteController@create');
+Route::get('/favorite/cache/{pid}', 'FavoriteController@cache');
+Route::get('/favorite/cachelist', 'FavoriteController@cacheList');
 
 Route::get('/product/search', 'ProductController@lists');
 Route::get('/product/list/{classid}', 'ProductController@showbyclass');
