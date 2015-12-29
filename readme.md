@@ -5,6 +5,25 @@
 [![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
 [![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+商城项目
+
+为了实现更多实用功能进行的试验
+
+目前功能开发：
+
+```php
+
+商品发布：Product
+
+购物车管理：Favorite
+
+订单管理：Past
+
+```
+
+下载项目完成后，cmd进入文件夹目录
+composer update
+
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
 
