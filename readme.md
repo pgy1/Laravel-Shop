@@ -4,6 +4,8 @@
 
 为了实现更多实用功能进行的试验
 
+![图片]https://github.com/pgy1/Laravel-Shop.git/home.jpg
+
 #目前功能开发：
 
 ```php
@@ -65,5 +67,6 @@ ProductController
 ```php
 FavoriteController
 登录后，才能使用；所以加入购物车的时候，需要用户信息。
+
 
 ```
