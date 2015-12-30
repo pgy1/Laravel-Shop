@@ -6,14 +6,6 @@ use App\Product;
 interface ProductService {
 
     /**
-     * 更新收藏标识
-     * @param $pid 商品随机号
-     * @param $flag 收藏标识
-     * */
-
-    public function updateFavoriteFlag($pid, $flag);
-
-    /**
      * 新增商品信息
      * @param $product 商品信息
      * */
@@ -46,9 +38,9 @@ interface ProductService {
      * */
 
     //单个关键词
-    public function getProductsByKey($key);
+    public function getProductsByKey($keyword,$from, $to);
     //多关键词
-    public function getProductsByMoreKey($keyArray);
+    public function getProductsByMoreKey($keyArray,$from, $to);
 
     /**
      * 商品数据

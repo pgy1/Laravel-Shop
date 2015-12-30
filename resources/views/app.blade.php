@@ -129,6 +129,7 @@
         </div>
     </div>
 </div>
+
 @yield('content')
 
         <!-- Scripts -->

@@ -15,7 +15,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <div class="preview">
                             <div class="image">
-                                <img src="{{ url($product['images'])  }}" width="360">
+                                <img src="{{ url($product['image'])  }}" width="360" height="250">
                             </div>
                             <div class="options">
                                 <h3>{{ $product['name'] }}</h3>
@@ -24,16 +24,26 @@
                                 <p>交易方式：{{ $product['payway'] }}</p>
 
                                 <div class="btn-group">
-                                    <a href="{{ url('/product/show').'/'.$product["id"] }}">
+                                    <a href="{{ url('/product/show').'/'.$product["pid"] }}">
                                         <button class="btn btn-info">
                                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;查看详情
                                         </button>
                                     </a>
-                                    <a href="{{ url('/favorite/create').'/'.$product["id"] }}">
-                                        <button class="btn btn-success">
-                                            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;收藏物品
-                                        </button>
-                                    </a>
+                                    @if(Auth::check())
+                                        @if(isset($product->fid))
+                                            <a href="{{ url('/favorite/cancel').'/'.$product->pid }}">
+                                                <button class="btn btn-warning">
+                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;已收藏
+                                                </button>
+                                            </a>
+                                        @else
+                                            <a href="{{ url('/favorite/create').'/'.$product->pid }}">
+                                                <button class="btn btn-success">
+                                                    <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;收藏物品
+                                                </button>
+                                            </a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>

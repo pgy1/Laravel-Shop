@@ -60,7 +60,7 @@ class PastController extends Controller {
 			$past->price = $product->price;
 			$past->type = $product->type;
 			$past->payway = $product->payway;
-			$past->image = $product->images;
+			$past->image = $product->image;
 			$past->save();
 		}else{
             $past = Past::getPastByUPid($uid, $pid);

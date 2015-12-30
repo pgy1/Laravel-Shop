@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 class ProductController extends Controller {
 
 	private $user;
+	private $productService;
 
 	/*
 	|--------------------------------------------------------------------------
@@ -27,9 +28,10 @@ class ProductController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(ProductService $productService)
 	{
 //		$this->middleware('guest');
+		$this->productService = $productService;
 		$this->user = Auth::user();
 	}
 
@@ -55,6 +57,8 @@ class ProductController extends Controller {
 		$value = $request->input("search");
 		$product = Product::where('name','like','%'.$value.'%');
 		$lists = $product->paginate(5);
+		$products = $this->productService->getPages(1,9);
+
 		return view('search',['products'=>$lists->toArray(),'pages'=>$lists,'search'=>$value]);
 	}
 
@@ -63,10 +67,13 @@ class ProductController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function show(ProductService $productService,$pid)
+	public function show($pid)
 	{
-        $product = $productService->getProductById($pid);
-		$favorite = $productService->getFidByUPid($this->user->id,$pid);
+        $product = $this->productService->getProductById($pid);
+		if(isset($this->user))
+			$favorite = $this->productService->getFidByUPid($this->user->id,$pid);
+		else
+			$favorite = null;
 		$product->favorite = $favorite;
 //		dd($product);
 		return view('product.single',['product'=>$product]);
@@ -136,7 +143,8 @@ class ProductController extends Controller {
 		if (view()->exists('product.edit')){
 			return view('product.edit');
 		}
-		return view('home');
+		$products = $this->productService->getPages(1,9);
+		return view('home')->with('data',$products);
 	}
 
     public function upload(Request $request, Response $response){

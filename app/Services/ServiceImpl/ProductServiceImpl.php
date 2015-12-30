@@ -47,10 +47,21 @@ class ProductServiceImpl implements ProductService{
      * */
 
     public function getProductsByUser(){
+        $data = array();
         //直接获取所有的商品数据
-        $products = DB::table("products")->where('uid',$this->user->id)
+        $products = DB::table("products")
+                    ->where('uid',$this->user->id)
                     ->orderBy("updated_at","desc")->get();
-        return $products;
+
+        foreach ($products as $product) {
+            $fid = $this->favoriteService->getFidByUPid($this->user->id, $product->pid);
+            if (!empty($fid)) {
+                $product->fid = $fid;
+            }
+            array_push($data, $product);
+        }
+
+        return $data;
     }
 
     /**
@@ -58,17 +69,41 @@ class ProductServiceImpl implements ProductService{
      * */
 
     //单个关键词
-    public function getProductsByKey($key){
-        $favorites = $this->favoriteService->getFavorites();
-//        dd($favorites);
-        //直接获取所有的商品数据
-        $products = DB::table("products")->where('name', "like", "%".$key."%")
-                    ->orderBy("updated_at","desc")->get();
+    public function getProductsByKey($keyword,$from, $to){
+
+        $products = DB::table("products")
+            ->where("name","like","%".$keyword."%")
+            ->orderBy("updated_at","desc")
+            ->skip($from)->take($to)->get();
+
         return $products;
+
+    }
+    //用户和关键词
+    public function getProductsByUserAndKey($keyword,$from, $to){
+
+        $data = array();
+
+        $products = DB::table("products")
+            ->where('uid',$this->user->id)
+            ->where("name","like","%".$keyword."%")
+            ->orderBy("updated_at","desc")
+            ->skip($from)->take($to)->get();
+
+        foreach ($products as $product) {
+            $fid = $this->favoriteService->getFidByUPid($this->user->id, $product->pid);
+            if (!empty($fid)) {
+                $product->fid = $fid;
+            }
+            array_push($data, $product);
+        }
+
+        return $data;
+
     }
 
     //多关键词
-    public function getProductsByMoreKey($keyArray){
+    public function getProductsByMoreKey($keyArray,$from, $to){
 
     }
 
@@ -158,7 +193,7 @@ class ProductServiceImpl implements ProductService{
             array_push($data,$product);
         }
 
-        return $products;
+        return $data;
 
     }
 
@@ -180,21 +215,10 @@ class ProductServiceImpl implements ProductService{
             array_push($data,$product);
         }
 
-        return $products;
+        return $data;
 
     }
 
-    /**
-     * 更新收藏标识
-     * @param $pid 商品随机号
-     * @param $flag 收藏标识
-     * */
-
-    public function updateFavoriteFlag($pid, $flag)
-    {
-        // TODO: Implement updateFavoriteFlag() method.
-        return DB::table("products")->where("pid",$pid)->update(["favorite"=>$flag]);
-    }
 
     /**
      * 获取收藏随机号

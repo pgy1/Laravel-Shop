@@ -30,7 +30,7 @@
                             @foreach($data['pasts'] as $key=>$past)
                             <tr>
                                 <td width="20%">
-                                    <img src="{{ url($past->image)  }}" class="img-thumbnail fleft" width="150">
+                                    <img src="{{ url($past->image)  }}" class="fleft" width="150" height="150">
                                 </td>
                                 <td width="70%">
                                     <div>

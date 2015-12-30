@@ -13,9 +13,9 @@
 
                 <div class="image">
                     <img src="{{ url($product->image) }}" width="350" height="250">
-                    <?php $images = explode(",",$product->images);?>
+                    <?php $images = array_reverse(explode(",",$product->images));?>
                     @foreach($images as $image)
-                    <img src="{{ url($image) }}" width="100" height="100">
+                    <img src="{{ url($image) }}" width="114" height="120">
                     @endforeach
                 </div>
 
@@ -40,13 +40,13 @@
                     </button>
                 </a>
                 @if($product->favorite)
-                    <a href="{{ url('/favorite/cancel').'/'.$product->id }}">
+                    <a href="{{ url('/favorite/cancel').'/'.$product->pid }}">
                         <button class="btn btn-warning">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;已收藏
                         </button>
                     </a>
                 @else
-                    <a href="{{ url('/favorite/create').'/'.$product->id }}">
+                    <a href="{{ url('/favorite/create').'/'.$product->pid }}">
                         <button class="btn btn-success">
                             <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;收藏物品
                         </button>

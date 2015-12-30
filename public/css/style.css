@@ -3,6 +3,16 @@ body{
     font-family:"微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+img,p{
+    padding: 0;
+    margin: 0;
+}
+
+.relative{position: relative;}
+
+.section-preview{
+    min-height: 550px;
+}
 .section-preview .preview{
     min-height: 350px;
 }
@@ -43,4 +53,50 @@ body{
 
 .splash{
     padding: 40px 0 20px 0;
+}
+
+#car{
+    position: fixed;
+    right: 0;
+    top: 190px;
+    padding: 5px;
+    border: 1px solid #d8d8d8;
+    text-align: center;
+}
+
+.carname{
+    display: block;
+    padding-bottom: 5px;
+}
+
+#car .proimg:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+#car .link{
+    position: absolute;
+    left: 0;
+    top: 0px;
+    width: 80px;
+    height: 80px;
+}
+
+#car .glyphicon-link{
+    position: absolute;
+    left: 35px;
+    top: 35px;
+}
+
+#car .proname{
+    /*position: absolute;*/
+    /*top: 30px;*/
+    /*left: 0;*/
+    display: block;
+    /*width: 100%;*/
+    color: #666;
+}
+
+.morecar{
+
 }

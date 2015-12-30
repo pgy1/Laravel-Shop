@@ -13,6 +13,24 @@
             </div>
         </div>
     </div>
+
+    <div id="car">
+        <span class="carname"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;购物车</span>
+        @foreach($favorites["products"] as $product)
+            <?php $product = $product['product']?>
+            {{--{{ dd($product) }}--}}
+            <p class="proimg clearfix relative">
+                <img src="{{ url($product->image) }}" width="80" height="80" class="fleft">
+                <a href="{{ url('/product/show/145136053832813') }}" class="link">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </a>
+                <span class="proname" class="fleft">{{ $product->name }}</span>
+            </p>
+        @endforeach
+        <p class="morecar">
+            <a href="{{ url('/favorite/list') }}" class="btn btn-danger">￥结算</a>
+        </p>
+    </div>
     <div class="section-preview">
         <div class="container">
             <div class="row">

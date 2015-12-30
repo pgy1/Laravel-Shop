@@ -42,15 +42,14 @@ class Favorite extends Model {
     /*
      * 获取与购物车相关联的商品信息
      * */
-    public static function getProductList(FavoriteService $favoriteService){
+    public static function getProductList(FavoriteService $favoriteService,$favorites){
         $products = array();
-        $list = $favoriteService->getFavorites();
-        foreach($list as $favorite){
+        foreach($favorites as $favorite){
             $productService = new ProductServiceImpl($favoriteService);
             $product = $productService->getProductById($favorite->pid);
             $products[$favorite->fid]['product'] = $product;
         }
-//        dd($products);
+//        dd($favorites);
         return $products;
     }
 

@@ -116,7 +116,7 @@ class FavoriteServiceImpl implements FavoriteService{
         $data['favorites'] = DB::table("favorites")
                         ->orderBy("updated_at","desc")
                         ->skip($from)->take($to)->get();//相当于limit $from,$to
-        $data['products'] = Favorite::getProductList($this);//获取购物车相关联的商品表数据
+        $data['products'] = Favorite::getProductList($this, $data['favorites']);//获取购物车相关联的商品表数据
         $data['page']['total'] = count($totalData);//计算数据总条数
 
         $availible = ceil((count($totalData)/$perPage));//计算数据可分的总页数
@@ -153,7 +153,7 @@ class FavoriteServiceImpl implements FavoriteService{
         $data['favorites'] = DB::table("favorites")->where('uid',$this->user->id)
                         ->orderBy("updated_at","desc")
                         ->skip($from)->take($to)->get();//相当于limit $from,$to
-        $data['products'] = Favorite::getProductList($this);//获取购物车相关联的商品表数据
+        $data['products'] = Favorite::getProductList($this, $data['favorites']);//获取购物车相关联的商品表数据
         $data['page']['total'] = count($totalData);//计算数据总条数
 
         $availible = ceil((count($totalData)/$perPage));//计算数据可分的总页数

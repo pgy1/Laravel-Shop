@@ -22,7 +22,7 @@
 
                 <div class="blog-post">
                     <div class="image">
-                        <img src="{{ url($past->image) }}" width="350">
+                        <img src="{{ url($past->image) }}" width="350" height="250">
                     </div>
 
                 </div>
