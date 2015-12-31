@@ -1,23 +1,73 @@
-## Laravel PHP Framework
+# Laravel PHP Framework
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+#商城项目
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+为了实现更多实用功能进行的试验
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+![图片]https://github.com/pgy1/Laravel-Shop.git/home.jpg
 
-## Official Documentation
+#目前功能开发：
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+```php
 
-## Contributing
+商品发布：Product
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+购物车管理：Favorite
 
-### License
+订单管理：Past
 
+```
+
+#注意事项
+
+```php
+下载项目完成后，cmd进入文件夹目录
+composer update
+
+```
+
+#需求分析
+
+##商品展示
+
+
+```php
+
+分页展示商品，所以基础函数是分页函数
+附加：购物车功能、查看详细信息
+
+```
+
+###首页展示
+
+```php
+HomeController
+滚动翻页、右侧简易购物车提示
+
+```
+
+###搜索展示
+
+```php
+ProductController
+单个关键词、多个关键词搜索-瀑布流形式
+
+```
+
+###用户商品管理展示
+
+```php
+ProductController
+关键词搜索、删除，修改，增加--列表形式
+
+```
+
+##购物车功能
+
+```php
+FavoriteController
+登录后，才能使用；所以加入购物车的时候，需要用户信息。
+
+
+```
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
