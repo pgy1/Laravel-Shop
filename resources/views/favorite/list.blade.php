@@ -32,7 +32,7 @@
                             @foreach($data['favorites'] as $key=>$favorite)
                                 @foreach($data['products'][$favorite->fid] as $key=>$product)
                             <tr>
-                                <td><input type="checkbox" name="check" /></td>
+                                <td><input type="checkbox" name="check" class="check" /></td>
                                 <td width="20%">
                                     <img src="{{ url($product->image)  }}" class=" fleft" width="150" height="150">
                                 </td>
@@ -40,31 +40,30 @@
                                     <div>
                                         <h4 class="list-group-item-heading">
                                             <a href="{{ url('product/show').'/'.$product->pid  }}">{{ $product->name }}</a>
+                                            <span class="red">￥<span class="price">{{ $product->price }}</span></span>
                                         </h4>
                                         <p class="list-group-item-text">{{ htmlspecialchars_decode($product->description) }}</p>
+
                                     </div>
                                 </td>
-                                <td width="10%"></td>
-                                {{--<td width="10%">--}}
-                                    {{--<a class="btn btn-danger fleft" href="{{ url('/past/create').'/'.$product->pid }}">--}}
-                                        {{--￥支付--}}
-                                        {{--<i class="fa fa-external-link"></i>--}}
-                                    {{--</a>--}}
-                                    {{--<a class="btn btn-warning fleft" href="{{ url('/favorite/delete').'/'.$favorite->fid }}">--}}
-                                        {{--<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除--}}
-                                        {{--<i class="fa fa-external-link"></i>--}}
-                                    {{--</a>--}}
-                                {{--</td>--}}
+                                <td width="10%">
+                                    <div class="operate hidden">
+                                        <a class="btn btn-warning fleft" href="{{ url('/favorite/delete').'/'.$favorite->fid }}">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除
+                                            <i class="fa fa-external-link"></i>
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>
                                 @endforeach
                             @endforeach
                             <tr>
                                 <td colspan="3">
-                                    <input type="checkbox" name="check" />&nbsp;&nbsp;全选
+                                    <input type="checkbox" name="check" class="checkall" />&nbsp;&nbsp;全选
                                 </td>
                                 <td>
                                     <div class="clearfix">
-                                        <p class="fleft" style="font-size: 20px;">共：<span style="color:red;">￥200</span></p>
+                                        <p class="fleft" style="font-size: 20px;">共：<span class="sum red">￥{{ $data['sum'] }}</span></p>
                                         <a class="btn btn-danger fright" href="http://localhost:8001/laravel/public/past/create/145136053832813">
                                             ￥结算
                                             <i class="fa fa-external-link"></i>
@@ -114,4 +113,18 @@
             </footer>
         </div>
     </div>
+
+@endsection
+
+@section('car')
+    <script>
+        $(".check").each(function (index, ele) {
+            $(ele).bind("click",function(){
+                $(ele).parent().siblings("td:last").find(".operate").addClass("hidden");
+                if($(ele).is(":checked")){
+                    $(ele).parent().siblings("td:last").find(".operate").removeClass("hidden");
+                }
+            });
+        });
+    </script>
 @endsection

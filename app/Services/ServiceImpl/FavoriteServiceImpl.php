@@ -116,6 +116,11 @@ class FavoriteServiceImpl implements FavoriteService{
         $data['favorites'] = DB::table("favorites")
                         ->orderBy("updated_at","desc")
                         ->skip($from)->take($to)->get();//相当于limit $from,$to
+
+        $data['sum'] = DB::table("favorites")
+            ->leftJoin('products','favorites.pid','=','products.pid')
+            ->orderBy("favorites.updated_at","desc")
+            ->sum('products.price');
         $data['products'] = Favorite::getProductList($this, $data['favorites']);//获取购物车相关联的商品表数据
         $data['page']['total'] = count($totalData);//计算数据总条数
 
@@ -153,6 +158,11 @@ class FavoriteServiceImpl implements FavoriteService{
         $data['favorites'] = DB::table("favorites")->where('uid',$this->user->id)
                         ->orderBy("updated_at","desc")
                         ->skip($from)->take($to)->get();//相当于limit $from,$to
+        $data['sum'] = DB::table("favorites")
+                    ->leftJoin('products','favorites.pid','=','products.pid')
+                    ->where('favorites.uid',$this->user->id)
+                    ->orderBy("favorites.updated_at","desc")
+                    ->sum('products.price');
         $data['products'] = Favorite::getProductList($this, $data['favorites']);//获取购物车相关联的商品表数据
         $data['page']['total'] = count($totalData);//计算数据总条数
 

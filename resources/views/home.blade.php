@@ -20,7 +20,7 @@
             <?php $product = $product['product']?>
             {{--{{ dd($product) }}--}}
             <p class="proimg clearfix relative">
-                <img src="{{ url($product->image) }}" width="80" height="80" class="fleft">
+                <img src="{{ url($product->image) }}" class="fleft">
                 <a href="{{ url('/product/show/145136053832813') }}" class="link">
                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                 </a>
@@ -28,7 +28,7 @@
             </p>
         @endforeach
         <p class="morecar">
-            <a href="{{ url('/favorite/list') }}" class="btn btn-danger">￥结算</a>
+            <a href="{{ url('/favorite/list') }}" class="btn btn-danger">结算<br /><span>￥{{ $favorites["sum"] }}</span></a>
         </p>
     </div>
     <div class="section-preview">
@@ -67,7 +67,7 @@
 {{--                                    <a href="{{ url('/favorite/cache').'/'.$product->pid }}">--}}
                                     <a href="{{ url('/favorite/create').'/'.$product->pid }}">
                                         <button class="btn btn-success">
-                                            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;收藏物品
+                                            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;加入购物车
                                         </button>
                                     </a>
                                 @endif
@@ -75,13 +75,13 @@
                                     @if(isset($product->fid))
                                         <a href="{{ url('/favorite/cancel').'/'.$product->pid }}">
                                             <button class="btn btn-warning">
-                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;已收藏
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;已添加
                                             </button>
                                         </a>
                                         @else
                                         <a href="{{ url('/favorite/create').'/'.$product->pid }}">
                                             <button class="btn btn-success">
-                                                <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;收藏物品
+                                                <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>&nbsp;加入购物车
                                             </button>
                                         </a>
                                     @endif

@@ -44,6 +44,10 @@ img,p{
     padding: 3px 15px;
 }
 
+.red{
+    color: red;
+}
+
 .fleft{
     float: left;
 }
@@ -69,6 +73,11 @@ img,p{
     padding-bottom: 5px;
 }
 
+#car .proimg img{
+    width: 76px;
+    height: 76px;
+}
+
 #car .proimg:hover{
     opacity: 0.8;
     cursor: pointer;
@@ -78,14 +87,14 @@ img,p{
     position: absolute;
     left: 0;
     top: 0px;
-    width: 80px;
-    height: 80px;
+    width: 76px;
+    height: 76px;
 }
 
 #car .glyphicon-link{
     position: absolute;
-    left: 35px;
-    top: 35px;
+    left: 33px;
+    top: 33px;
 }
 
 #car .proname{
@@ -97,6 +106,10 @@ img,p{
     color: #666;
 }
 
-.morecar{
+.hidden{
+    display: none;
+}
 
+.show{
+    display: block;
 }
