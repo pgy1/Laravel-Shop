@@ -4,7 +4,7 @@
 
 为了实现更多实用功能进行的试验
 
-![图片](https://github.com/pgy1/Laravel-Shop/edit/shop/home.jpg)
+![图片](https://github.com/pgy1/Laravel-Shop.git/home.jpg)
 
 #目前功能开发：
 
