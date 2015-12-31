@@ -45,6 +45,7 @@ HomeController
 滚动翻页、右侧简易购物车提示
 
 ```
+![图片](https://github.com/pgy1/Laravel-Shop/blob/shop/home.jpg)
 
 ###搜索展示
 
